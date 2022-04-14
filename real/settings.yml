@@ -1,0 +1,53 @@
+functions:
+  - 'main':
+    description: 'This function automatically levels mobs, if they fit certain requirements.'
+    linked-events: ['on-mob-spawn', 'on-mob-scan']
+    do:
+      - process: 'check-not-levellable'
+        description: 'Establishes conditions required for individual mobs to become levelled.'
+        if:
+          - check: 'world-name'
+            description: 'A list of world names which mobs cannot be levelled in.'
+            is-in-list: []
+            case-sensitivity: true
+          - check: 'entity-type'
+            description: 'A list of mob entity types which are not allowed to become levelled.'
+            is-in-list: []
+          - check: 'mob-owner'
+            description: 'A list of MobOwner plugin integration names which are allowed to become levelled.'
+            is-not-in-list: []
+        do:
+          - action: 'adjust-level'
+            set-to: none
+      - process: 'apply-level'
+        do:
+          - action: 'set-nametag'
+            format: '[%entity-prefix%Lvl.%entity-level% | %entity-name% | %entity-health%/%entity-max-health%hp]'
+            visibility-duration: 1
+            visibility-methods: ['']
+          - action: 'set-rule-inheritance'
+            babies-inherit-rules: true
+            passengers-inherit-rules: true
+        use-presets: ['standard-difficulty']
+  - 'nametag-updater':
+    description: 'This function automatically updates the nametags of levelled mobs.'
+    linked-events: ['on-mob-damage', 'on-mob-regain-health', 'on-player-join', 'on-player-teleport', 'on-mob-track']
+    do:
+      - process: 'update-nametag-for-mob'
+        description: 'Update the nametag of the mob'
+        if:
+          - check: 'levelled-state'
+            description: 'Check if the mob is not levelled'
+            require-state: false
+        do:
+          - action: 'update-nametag'
+
+metadata:
+  version:
+    original: 999
+    current: 999
+
+brainstorming-notes: |
+  - Replaced LM3's 'Rules System' with LM4's 'Functions System'
+    - LM4's 'Processes' are functionally identical to LM3's 'Rules'
+  - Event 'on-player-teleport' is triggered by 'on-player-change-world' as well.
