@@ -11,14 +11,17 @@ functions:
             is-in-list: []
             case-sensitivity: true
           - check: 'entity-type'
-            description: 'A list of mob entity types which are not allowed to become levelled.'
+            description: 'A list of mob entity types which are not allowed to become levelled. Note: you may want to consider nerfing the attribute multipliers on the mob instead of making it not levelled.'
             is-in-list: []
           - check: 'mob-owner'
             description: 'A list of MobOwner plugin integration names which are allowed to become levelled.'
             is-not-in-list: []
         do:
           - action: 'adjust-level'
+            description: 'This tells LevelledMobs to not level the mob.'
             set-to: none
+          - action: 'stop-processing'
+            description: 'This tells LevelledMobs to not continue processing this function.'
       - process: 'apply-level'
         do:
           - action: 'set-nametag'
