@@ -1,0 +1,38 @@
+# The update checker should only be disabled if it is
+# causing any errors on your server. Keep LevelledMobs
+# up-to-date!
+update-checker:
+  enabled: true
+  notify:
+    players-with-permission: true
+    console-log: true
+
+# Sends 'useful spam' to your console logs. Great for
+# figuring out the logic happening behind the scenes.
+debug:
+  enabled-debug-categories:
+    inclusive-list: []
+
+# Configure some aspects about LevelledMobs' integrations
+# here. Integrations are cooperation layers between
+# LevelledMobs and another plugin. Internal integrations
+# are made by LevelledMobs, external integrations are made
+# by other plugins. Many internal integrations are made
+# for compatibility with other mob owner plugins.
+integration:
+  enabled-internal-integrations:
+    exclusive-list: []
+
+# A hard limiter on what the minimum possible level is
+# in LevelledMobs. Has priority over everything, even
+# summon overrides. Negative values are possible, but
+# we highly recommend against anything lower than 0.
+# Negative levels have not been tested and may cause
+# damage to your server. It may be tempting, but please
+# don't try on a server you care about.
+minimum-possible-level: 1
+
+metadata:
+  version:
+    original: 999
+    current: 999

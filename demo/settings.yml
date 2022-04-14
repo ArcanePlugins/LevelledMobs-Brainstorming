@@ -1,0 +1,72 @@
+default-locale: 'en_US'
+
+function:
+  on-mob-spawn:
+    enabled: true
+    component:
+
+      - cluster: 'mob-leveling'
+        enabled: true
+        component:
+
+          - rule: 'no-levels-from-spawners'
+            enabled: true
+            description: 'Makes LM not level any mobs from Monster Spawners.'
+            condition:
+              spawn-reason:
+                inclusive-list: ['SPAWNER']
+            use-presets: ['no-level']
+
+          - rule: 'no-levels-from-certain-worlds'
+            enabled: false
+            description: 'Makes LM not level any mobs from certain worlds.'
+            condition:
+              world:
+                inclusive-list: ['world_the_end']
+            use-presets: ['no-level']
+
+          - rule: 'no-levels-from-other-plugins-mobs'
+            enabled: true
+            description: 'Makes LM not level any mobs that belong to other plugins, e.g. Citizens or MythicMobs.'
+            condition:
+              mob-owner:
+                exclusive-list: []
+            use-presets: ['no-level']
+
+          - rule: 'leveling'
+            enabled: true
+            description: 'Applies a level and stats to mobs'
+            action:
+              nametag:
+                format: '[Lvl. %entity-level% | %entity-name% | %entity-health%/%entity-max-health%]'
+                visibility-duration: 1
+                visibility-methods: ['TARGETED', 'ATTACKED']
+              inheritance:
+                babies: true
+                passengers: false
+              update-nametags: true
+            use-presets: ['standard-difficulty']
+    
+  on-mob-damage, on-mob-regain-health, on-player-join, on-player-teleport, on-player-change-world:
+    enabled: true
+    component:
+      - rule: 'update-nametag'
+        condition:
+          is-levelled: true
+        action:
+          update-nametags: true
+
+  broadcast-hello-world:
+    enabled: true
+    component:
+      - rule: 'broadcasting-rule'
+        enabled: true
+        action:
+          - broadcast-chat-message:
+              - '%prefix% Hello, world!'
+              - '%prefix% This message is multi-line!'
+
+metadata:
+  version:
+    original: 999
+    current: 999
