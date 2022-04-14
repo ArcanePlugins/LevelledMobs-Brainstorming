@@ -1,0 +1,13 @@
+preset:
+  'basic-challenge':
+  'average-challenge':
+  'advanced-challenge':
+  'extreme-challenge':
+  'no-level':
+    nothing-changed-around-here-same-old: true
+
+# Do not edit these values!
+metadata:
+  version:
+    original: 999
+    current: 999

@@ -1,5 +1,5 @@
 functions:
-  - 'main':
+  'main':
     description: 'This function automatically levels mobs, if they fit certain requirements.'
     linked-events: ['on-mob-spawn', 'on-mob-scan']
     processes:
@@ -20,8 +20,8 @@ functions:
           - action: 'adjust-level'
             description: 'This tells LevelledMobs to not level the mob.'
             set-to: none
-          - action: 'stop-processing'
-            description: 'This tells LevelledMobs to not continue processing this function.'
+          - action: 'exit-function'
+            description: 'This tells LevelledMobs to not continue running this function for the mob.'
       - process: 'apply-level'
         do:
           - action: 'set-nametag'
@@ -32,7 +32,8 @@ functions:
             babies-inherit-rules: true
             passengers-inherit-rules: true
         use-presets: ['standard-difficulty']
-  - 'nametag-updater':
+
+  'nametag-updater':
     description: 'This function automatically updates the nametags of levelled mobs.'
     linked-events: ['on-mob-damage', 'on-mob-regain-health', 'on-player-join', 'on-player-teleport', 'on-mob-track']
     processes:
@@ -45,6 +46,7 @@ functions:
         do:
           - action: 'update-nametag'
 
+# Do not edit these values!
 metadata:
   version:
     original: 999

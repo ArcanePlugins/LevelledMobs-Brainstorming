@@ -1,0 +1,29 @@
+entity:
+  CREEPER: 'Creeper'
+
+number:
+  1: '1'
+  2: '2'
+  3: '3'
+
+command:
+  levelledmobs:
+    subcommand:
+      info:
+        success:
+          - '+--------------------------------------+'
+          - 'LevelledMobs v%version%'
+          - ' The Ultimate RPG Mob Levelling Solution'
+          - ''
+          - 'Links:'
+          - ' About     Wiki     Discord     GitHub'
+          - ''
+          - 'Maintained by:'
+          - ' @lokka30   @PenalBuffalo   @UltimaOath'
+          - '+--------------------------------------+'
+
+# Do not edit these values!
+metadata:
+  version:
+    original: 999
+    current: 999
