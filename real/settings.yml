@@ -2,7 +2,7 @@ functions:
   - 'main':
     description: 'This function automatically levels mobs, if they fit certain requirements.'
     linked-events: ['on-mob-spawn', 'on-mob-scan']
-    do:
+    processes:
       - process: 'check-not-levellable'
         description: 'Establishes conditions required for individual mobs to become levelled.'
         if:
