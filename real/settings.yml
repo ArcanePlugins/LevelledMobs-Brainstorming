@@ -32,7 +32,7 @@ functions:
   - 'nametag-updater':
     description: 'This function automatically updates the nametags of levelled mobs.'
     linked-events: ['on-mob-damage', 'on-mob-regain-health', 'on-player-join', 'on-player-teleport', 'on-mob-track']
-    do:
+    processes:
       - process: 'update-nametag-for-mob'
         description: 'Update the nametag of the mob'
         if:
