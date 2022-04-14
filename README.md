@@ -1,4 +1,7 @@
-# LevelledMobs-Brainstorming
-This repository is used to discuss future changes to LevelledMobs (`lokka30/LevelledMobs`). Feel free to partake in any discussions.
+# BS2 Changelog
 
-## Remember to select a branch! :)
+## Major Changes
+
+- Replaced LM3's 'Rules System' with LM4's 'Functions System'
+- LM4's 'Processes' are functionally identical to LM3's 'Rules'
+- Event 'on-player-teleport' is triggered by 'on-player-change-world' as well.
