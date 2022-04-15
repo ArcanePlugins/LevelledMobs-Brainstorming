@@ -13,8 +13,8 @@ functions:
         if:
           - check: 'world-name'
             description: 'A list of world names which mobs cannot be levelled in.'
-            in-list: []
             case-sensitivity: true
+            in-list: []
           - check: 'entity-type'
             description: 'A list of mob entity types which are not allowed to become levelled. Note: you may want to consider nerfing the attribute multipliers on the mob instead of making it not levelled.'
             in-list: []
@@ -36,9 +36,9 @@ functions:
 #          - action: 'set-rule-inheritance'
 #            babies-inherit-rules: true
 #            passengers-inherit-rules: true
-### unsure how rule inheritance would be programmed
-### in an efficient manner. it's likely that we will
-### need to remove the feature entirely.
+##### unsure how rule inheritance would be programmed
+##### in an efficient manner. it's likely that we will
+##### need to remove the feature entirely.
         use-presets: ['standard-difficulty']
 
   'nametag-updater':
