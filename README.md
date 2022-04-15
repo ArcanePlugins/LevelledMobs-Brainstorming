@@ -7,7 +7,7 @@
 - The 'Rules System' has been renamed to the 'Functions System', and is now present in `settings.yml`.
   - The Functions System is a complete redesign of the Rules System which is easier to use, and much more powerful.
 - A new file, 'Advanced Settings' (in `advanced.yml`) has now replaced the old `settings.yml` (which only really had advanced settings in it anyways).
-- 'Inclusive lists' and 'exclusive lists' have been renamed to more understandable counterparts: 'is in list' and 'is not in list' respectively.
+- 'Inclusive lists' and 'exclusive lists' have been renamed to more understandable counterparts: '[is] in list' and '[is] not in list' respectively.
 - A new translation system has replaced `messages.yml`. Much more is translatable, and translations are easier to write, copy, etc.
 
 ## Changes since `bs0`
