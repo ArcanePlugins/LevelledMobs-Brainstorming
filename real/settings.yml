@@ -8,14 +8,14 @@ functions:
         if:
           - check: 'world-name'
             description: 'A list of world names which mobs cannot be levelled in.'
-            is-in-list: []
             case-sensitivity: true
+            excluded: []
           - check: 'entity-type'
             description: 'A list of mob entity types which are not allowed to become levelled. Note: you may want to consider nerfing the attribute multipliers on the mob instead of making it not levelled.'
-            is-in-list: []
+            included: []
           - check: 'mob-owner'
             description: 'A list of MobOwner plugin integration names which are allowed to become levelled.'
-            is-not-in-list: []
+            included: []
         do:
           - action: 'adjust-level'
             description: 'This tells LevelledMobs to not level the mob.'
