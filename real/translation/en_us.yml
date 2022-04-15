@@ -1,3 +1,8 @@
+##########################################
+#           ~ LevelledMobs v4 ~          #
+# The Ultimate RPG Mob Levelling Plugin  #
+##########################################
+
 entity:
   CREEPER: 'Creeper'
 

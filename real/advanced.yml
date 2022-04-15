@@ -1,3 +1,18 @@
+##########################################
+#           ~ LevelledMobs v4 ~          #
+# The Ultimate RPG Mob Levelling Plugin  #
+##########################################
+
+# Should levelled mobs spawned by the Monster Spawner blocks have
+# any buffed item or experience drops? Enabling this my have
+# adverse effects on your server's economy.
+mobs-from-spawners-have-buffed-drops: false
+
+# Should levelled boss mobs such as Ender Dragons and Withers
+# any buffed item or experience drops? Enabling this my have
+# adverse effects on your server's economy.
+boss-mobs-have-buffed-drops: false
+
 # The update checker should only be disabled if it is
 # causing any errors on your server. Keep LevelledMobs
 # up-to-date!
@@ -25,12 +40,17 @@ integration:
 
 # A hard limiter on what the minimum possible level is
 # in LevelledMobs. Has priority over everything, even
-# summon overrides. Negative values are possible, but
-# we highly recommend against anything lower than 0.
-# Negative levels have not been tested and may cause
-# damage to your server. It may be tempting, but please
-# don't try on a server you care about.
+# summon overrides. Negative values are hard-coded to
+# not be possible as we are unsure of what damage it
+# could cause to a server if someone decided to try it.
 minimum-possible-level: 1
+
+# A hard limiter on what the minimum possible buff
+# multiplier is in LevelledMobs. Negative values are
+# hard-coded to not be possible as we are unsure of
+# what damage it could cause to a server if someone
+# decided to try it.
+minimum-possible-buff-multiplier: 0.5
 
 # Do not edit these values!
 metadata:

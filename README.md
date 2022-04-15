@@ -10,6 +10,13 @@
 - 'Inclusive lists' and 'exclusive lists' have been renamed to more understandable counterparts: 'is in list' and 'is not in list' respectively.
 - A new translation system has replaced `messages.yml`. Much more is translatable, and translations are easier to write, copy, etc.
 
+## Changes since `bs0`
+
+- Just about everything
+- 'Buffs' are a new name for the attribute multiplier system
+- Buffed attributes can only be targeted as inclusive lists now. This is intentional for safety reasons
+- Buff's attribute multipliers are by default limited to at least `1.0` regardless of the formula used. This can be unlocked by specifying a different minimum boundary for a specific buff.
+
 ## Changes since `bs1`
 
 - Refactored almost everything in the settings.yml file.

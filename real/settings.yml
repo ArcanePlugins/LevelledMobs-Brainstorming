@@ -1,3 +1,8 @@
+##########################################
+#           ~ LevelledMobs v4 ~          #
+# The Ultimate RPG Mob Levelling Plugin  #
+##########################################
+
 functions:
   'main':
     description: 'This function automatically levels mobs, if they fit certain requirements.'
@@ -8,18 +13,18 @@ functions:
         if:
           - check: 'world-name'
             description: 'A list of world names which mobs cannot be levelled in.'
-            is-in-list: []
+            in-list: []
             case-sensitivity: true
           - check: 'entity-type'
             description: 'A list of mob entity types which are not allowed to become levelled. Note: you may want to consider nerfing the attribute multipliers on the mob instead of making it not levelled.'
-            is-in-list: []
+            in-list: []
           - check: 'mob-owner'
             description: 'A list of MobOwner plugin integration names which are allowed to become levelled.'
-            is-not-in-list: []
+            not-in-list: []
         do:
-          - action: 'adjust-level'
+          - action: 'set-level'
             description: 'This tells LevelledMobs to not level the mob.'
-            set-to: none
+            formula: 'no-level'
           - action: 'exit-function'
             description: 'This tells LevelledMobs to not continue running this function for the mob.'
       - process: 'apply-level'
@@ -28,9 +33,12 @@ functions:
             format: '[%entity-prefix%Lvl.%entity-level% | %entity-name% | %entity-health%/%entity-max-health%hp]'
             visibility-duration: 1
             visibility-methods: ['']
-          - action: 'set-rule-inheritance'
-            babies-inherit-rules: true
-            passengers-inherit-rules: true
+#          - action: 'set-rule-inheritance'
+#            babies-inherit-rules: true
+#            passengers-inherit-rules: true
+### unsure how rule inheritance would be programmed
+### in an efficient manner. it's likely that we will
+### need to remove the feature entirely.
         use-presets: ['standard-difficulty']
 
   'nametag-updater':
@@ -42,7 +50,7 @@ functions:
         if:
           - check: 'levelled-state'
             description: 'Check if the mob is not levelled'
-            require-state: false
+            required-state: false
         do:
           - action: 'update-nametag'
 

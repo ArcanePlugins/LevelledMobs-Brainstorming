@@ -1,10 +1,165 @@
-preset:
+##########################################
+#           ~ LevelledMobs v4 ~          #
+# The Ultimate RPG Mob Levelling Plugin  #
+##########################################
+
+# Welcome to the presets file! Here you can reduce the amount of boilerplate
+# you need to write in the functions system as presets essentially act as
+# 'copy and paste' bits for your functions. It can also be used to tidy up
+# some large ugly parts from your functions configuration so that your
+# settings file is easier to edit and understand. Define as many presets
+# as you need to.
+presets:
+  # ... (recommendation) add your own presets above the existing ones ...
   'basic-challenge':
+    do:
+      - action: 'set-level'
+        description: 'Apply levelling formula'
+        formula: '%weighted-random-level%'
+        strategies:
+          weighted-random:
+            tiers:
+              '1-20': 8
+              '21-40': 6
+              '41-60': 4
+              '61-80': 2
+              '81-100': 1
+        buffs:
+          #TODO
+
   'average-challenge':
+    do:
+      - action: 'set-level'
+        description: 'Apply levelling formula'
+        formula: '%weighted-random-level%'
+        strategies:
+          weighted-random:
+            tiers:
+              '1-20': 6
+              '21-40': 8
+              '41-60': 4
+              '61-80': 2
+              '81-100': 1
+        buffs:
+          - 'health-boost':
+            enabled: true
+            description: 'Boost the health of levelled mobs'
+            affected-entities:
+              not-in-list: ['ENDERMAN', 'WITHER_SKELETON']
+            attributes: ['GENERIC_MAX_HEALTH']
+            multiplier-formula: '1 + (%mob-level-percent% * 4)'
+
+          - 'movement-speed-boost':
+            enabled: true
+            description: 'Boost the speed of levelled mobs'
+            affected-entities:
+              not-in-list: ['ENDERMAN', 'CREEPER']
+            attributes: ['GENERIC_MOVEMENT_SPEED']
+            multiplier-formula: '1 + (%mob-level-percent% * 0.15)'
+
+          - 'armor-toughness-boost':
+            enabled: true
+            description: 'Boost the armor toughness of levelled mobs'
+            affected-entities:
+              in-list: ['*']
+            attributes: ['GENERIC_ARMOR_TOUGHNESS']
+            multiplier-formula: '1 + (%mob-level-percent% * 0.15)'
+
+          - 'attack-damage-boost':
+            enabled: true
+            description: 'Boost the attack damage of levelled mobs'
+            affected-entities:
+              in-list: ['*']
+            attributes: ['GENERIC_ATTACK_DAMAGE']
+            multiplier-formula: '1 + (%mob-level-percent% * 1.25)'
+
+          - 'ranged-attack-damage-boost':
+            enabled: true
+            description: 'Boost the ranged attack damage of levelled mobs'
+            affected-entities:
+              in-list: ['*']
+            attributes: ['CUSTOM_RANGED_ATTACK_DAMAGE']
+            multiplier-formula: '1 + %mob-level-percent%'
+
+          - 'creeper-blast-damage-boost':
+            enabled: true
+            description: 'Boost the blast damage of levelled creepers'
+            affected-entities:
+              in-list: ['CREEPER']
+            attributes: ['CUSTOM_CREEPER_BLAST_DAMAGE']
+            multiplier-formula: '1 + %mob-level-percent%'
+
+          - 'item-drop-boost':
+            enabled: true
+            description: 'Boosts the item drops of levelled mobs'
+            affected-entities:
+              not-in-list: ['ENDERMAN']
+            attributes: ['CUSTOM_ITEM_DROP']
+            multiplier-formula: '1 + (%mob-level-percent% * 3)'
+
+          - 'xp-drop-boost':
+            enabled: true
+            description: 'Boost the experience drops of levelled mobs'
+            affected-entities:
+              not-in-list: ['ENDERMAN']
+            attributes: ['CUSTOM_XP_DROP']
+            multiplier-formula: '1 + (%mob-level-percent% * 5)'
+
+          - 'armor-bonus-boost':
+            enabled: true
+            description: 'Boost the armor bonus of levelled mobs'
+            affected-entities:
+              in-list: ['*']
+            attributes: ['GENERIC_ARMOR_BONUS']
+            multiplier-formula: '1 + (%mob-level-percent% * 0.2)'
+
+          - 'knockback-resistance-boost':
+            enabled: true
+            description: 'Boost the knockback resistance of levelled mobs'
+            affected-entities:
+              not-in-list: ['CREEPER']
+            attributes: ['GENERIC_KNOCKBACK_RESISTANCE']
+            multiplier-formula: '1 + (%mob-level-percent% * 0.25)'
+
+          - 'zombie-spawn-reinforcements-boost':
+            enabled: true
+            description: 'Boost the spawn reinforcements chance of levelled zombies'
+            affected-entities:
+              in-list: ['*']
+            attributes: ['GENERIC_ZOMBIE_SPAWN_REINFORCEMENTS']
+            multiplier-formula: '1 + (%mob-level-percent% * 0.15)'
+
   'advanced-challenge':
+    do:
+      - action: 'set-level'
+        description: 'Apply levelling formula'
+        formula: '%weighted-random-level%'
+        strategies:
+          weighted-random:
+            tiers:
+              '1-20': 4
+              '21-40': 6
+              '41-60': 8
+              '61-80': 4
+              '81-100': 2
+        buffs:
+          #TODO
+
   'extreme-challenge':
-  'no-level':
-    nothing-changed-around-here-same-old: true
+    do:
+      - action: 'set-level'
+        description: 'Apply levelling formula'
+        formula: '%weighted-random-level%'
+        strategies:
+          weighted-random:
+            tiers:
+              '1-20': 1
+              '21-40': 2
+              '41-60': 4
+              '61-80': 8
+              '81-100': 4
+        buffs:
+          #TODO
 
 # Do not edit these values!
 metadata:
