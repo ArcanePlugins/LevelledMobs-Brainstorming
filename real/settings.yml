@@ -54,7 +54,8 @@ functions:
         do:
           - action: 'update-nametag'
 
-# Do not edit these values!
+#### File Metadata
+# Do not edit this section!
 metadata:
   version:
     original: 999

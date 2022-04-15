@@ -161,7 +161,8 @@ presets:
         buffs:
           #TODO
 
-# Do not edit these values!
+#### File Metadata
+# Do not edit this section!
 metadata:
   version:
     original: 999

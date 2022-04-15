@@ -3,56 +3,81 @@
 # The Ultimate RPG Mob Levelling Plugin  #
 ##########################################
 
-# Should levelled mobs spawned by the Monster Spawner blocks have
-# any buffed item or experience drops? Enabling this my have
-# adverse effects on your server's economy.
-mobs-from-spawners-have-buffed-drops: false
+#### Advanced Settings File
+# It is *highly* recommended that you do not
+# edit any of the settings in this file,
+# unless a LevelledMobs maintainer has suggested
+# you do so, or if you are certain you know
+# what you are doing. All of these settings
+# will have adverse effects on your server if
+# adjusted improperly. Therefore, you should
+# leave this file alone - or, if a setting here
+# interests you, you should ask LevelledMobs
+# maintainers if it is safe to do so.
+#### [advanced.yml]
 
-# Should levelled boss mobs such as Ender Dragons and Withers
-# any buffed item or experience drops? Enabling this my have
-# adverse effects on your server's economy.
-boss-mobs-have-buffed-drops: false
+#### Buffed Drops Hard Nerf Settings
+# Should certain types of levelled mobs have any
+# buffed item or experience drops? Enabling this will
+# likely have adverse effects on your server's economy.
+buffed-drops-for:
 
+  # Mobs spawned from Monster Spawner blocks.
+  spawner-mobs: false
+
+  # Mobs that are bosses, such as Ender Dragons, Withers, etc.
+  boss-mobs: false
+
+#### Update Checker Settings
 # The update checker should only be disabled if it is
-# causing any errors on your server. Keep LevelledMobs
-# up-to-date!
+# causing any errors on your server.
+# Keep LevelledMobs up-to-date.
 update-checker:
   enabled: true
   notify:
     players-with-permission: true
     console-log: true
 
-# Sends 'useful spam' to your console logs. Great for
-# figuring out the logic happening behind the scenes.
+#### Debugging System Settings
+# The debugging system is used by maintainers, developers
+# and testers to check if things are working correctly
+# behind the scenes. It sends 'useful spam' to your console
+# logs which you need to sift through to find what you're
+# looking for. You should not have any debugging enabled
+# unless you are actively using the debug output.
+# You can quickly enable all debugging by using...
+#   not-in-list: []
+# ...which will enable ALL debug categories.
 debug:
   enabled-debug-categories:
-    is-in-list: []
+    in-list: []
 
+#### Integration Settings
 # Configure some aspects about LevelledMobs' integrations
 # here. Integrations are cooperation layers between
-# LevelledMobs and another plugin. Internal integrations
-# are made by LevelledMobs, external integrations are made
-# by other plugins. Many internal integrations are made
-# for compatibility with other mob owner plugins.
+# LevelledMobs and another plugin.
 integration:
   enabled-internal-integrations:
     is-not-in-list: []
 
+#### Minimum Level Limiter
 # A hard limiter on what the minimum possible level is
 # in LevelledMobs. Has priority over everything, even
 # summon overrides. Negative values are hard-coded to
 # not be possible as we are unsure of what damage it
 # could cause to a server if someone decided to try it.
-minimum-possible-level: 1
+minimum-level: 1
 
+#### Minimum Buff Multiplier Limiter
 # A hard limiter on what the minimum possible buff
 # multiplier is in LevelledMobs. Negative values are
 # hard-coded to not be possible as we are unsure of
 # what damage it could cause to a server if someone
 # decided to try it.
-minimum-possible-buff-multiplier: 0.5
+minimum-buff-multiplier: 0.5
 
-# Do not edit these values!
+#### File Metadata
+# Do not edit this section!
 metadata:
   version:
     original: 999

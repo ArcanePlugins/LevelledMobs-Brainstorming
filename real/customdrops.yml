@@ -83,7 +83,8 @@ group-drop-limits:
   '2': 5
   '3': 1
 
-# Do not edit these values!
+#### File Metadata
+# Do not edit this section!
 metadata:
   version:
     original: 999
