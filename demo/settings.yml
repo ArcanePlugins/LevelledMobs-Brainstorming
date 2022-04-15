@@ -1,8 +1,9 @@
 default-locale: 'en_US'
 
 function:
-  on-mob-spawn:
+  'main':
     enabled: true
+    triggers: ['on-mob-spawn']
     component:
 
       - cluster: 'mob-leveling'
@@ -47,8 +48,9 @@ function:
               update-nametags: true
             use-presets: ['standard-difficulty']
     
-  on-mob-damage, on-mob-regain-health, on-player-join, on-player-teleport, on-player-change-world:
+  'nametag-updater':
     enabled: true
+    triggers: ['on-mob-damage', 'on-mob-regain-health', 'on-player-join', 'on-player-teleport', 'on-player-change-world']
     component:
       - rule: 'update-nametag'
         condition:
@@ -56,15 +58,15 @@ function:
         action:
           update-nametags: true
 
-  broadcast-hello-world:
-    enabled: true
-    component:
-      - rule: 'broadcasting-rule'
-        enabled: true
-        action:
-          - broadcast-chat-message:
-              - '%prefix% Hello, world!'
-              - '%prefix% This message is multi-line!'
+# broadcast-hello-world:
+#   enabled: true
+#   component:
+#     - rule: 'broadcasting-rule'
+#       enabled: true
+#       action:
+#         - broadcast-chat-message:
+#             - '%prefix% Hello, world!'
+#             - '%prefix% This message is multi-line!'
 
 metadata:
   version:
