@@ -11,12 +11,18 @@ functions:
       - process: 'check-not-levellable'
         description: 'Establishes conditions required for individual mobs to become levelled.'
         if:
+          - check: 'levelled-state'
+            description: 'This check makes sure that the mob being checked is not already levelled.'
+            required-state: 'NOT_LEVELLED'
           - check: 'world-name'
             description: 'A list of world names which mobs cannot be levelled in.'
             case-sensitivity: true
             in-list: []
           - check: 'entity-type'
-            description: 'A list of mob entity types which are not allowed to become levelled. Note: you may want to consider nerfing the attribute multipliers on the mob instead of making it not levelled.'
+            description: >
+              A list of mob entity types which are not allowed to become levelled.
+              Note: you may want to consider nerfing the attribute multipliers on
+              the mob instead of making it not levelled.
             in-list: []
           - check: 'mob-owner'
             description: 'A list of MobOwner plugin integration names which are allowed to become levelled.'
@@ -33,12 +39,10 @@ functions:
             format: '[%entity-prefix%Lvl.%entity-level% | %entity-name% | %entity-health%/%entity-max-health%hp]'
             visibility-duration: 1
             visibility-methods: ['']
-#          - action: 'set-rule-inheritance'
-#            babies-inherit-rules: true
-#            passengers-inherit-rules: true
-##### unsure how rule inheritance would be programmed
-##### in an efficient manner. it's likely that we will
-##### need to remove the feature entirely.
+          - action: 'set-level-inheritance'
+            description: 'Allow child and passenger mobs to inherit the mob''s level and stats.'
+            babies-inherit-level: true
+            passengers-inherit-level: true
         use-presets: ['standard-difficulty']
 
   'nametag-updater':
@@ -50,9 +54,103 @@ functions:
         if:
           - check: 'levelled-state'
             description: 'Check if the mob is not levelled'
-            required-state: false
+            required-state: 'LEVELLED'
         do:
           - action: 'update-nametag'
+
+  'example-function':
+    description: 'This function is just an example which is not used by default.'
+    triggers: []
+    processes:
+      - process: 'broadcast-a-message'
+        description: 'Broadcasts a cool message to everyone on the server'
+        do:
+          - action: 'broadcast-message-to-server'
+            message:
+              - '%prefix% Hello, world!'
+              - '%prefix% ...another line!'
+
+# Should LevelledMobs asynchronously scan for pre-existing mobs to level?
+#
+##### Move to wiki:
+##### If LevelledMobs was installed since you last reset your world, you can
+##### disable this. This is enabled by default as most server owners likely
+##### install LevelledMobs on servers with existing worlds.
+scan-for-existing-mobs: true
+
+##### WARNING: This configuration section does not exist
+##### in the default file, on purpose. This is so regular
+##### users don't know it exists. They like to fiddle with
+##### things that say 'IRREVERSIBLE' and 'DO NOT EDIT' :)
+##### Not even this 'advanced:' header will exist by default!!
+advanced:
+
+  #### Buffed Drops Hard Nerf Settings
+  # Should certain types of levelled mobs have any
+  # buffed item or experience drops? Enabling this will
+  # likely have adverse effects on your server's economy.
+  #### THIS SETTING IS HIDDEN BY DEFAULT
+  buffed-drops-for:
+
+    # Mobs spawned from Monster Spawner blocks.
+    spawner-mobs: false
+
+    # Mobs that are bosses, such as Ender Dragons, Withers, etc.
+    boss-mobs: false
+
+  #### Update Checker Settings
+  # The update checker should only be disabled if it is
+  # causing any errors on your server.
+  # Keep LevelledMobs up-to-date.
+  #### THIS SETTING IS HIDDEN BY DEFAULT
+  update-checker:
+    enabled: true
+    notify:
+      players-with-permission: true
+      console-log: true
+
+  #### Debugging System Settings
+  # The debugging system is used by maintainers, developers
+  # and testers to check if things are working correctly
+  # behind the scenes. It sends 'useful spam' to your console
+  # logs which you need to sift through to find what you're
+  # looking for. You should not have any debugging enabled
+  # unless you are actively using the debug output.
+  # You can quickly enable all debugging by using...
+  #   not-in-list: []
+  # ...which will enable ALL debug categories.
+  #### THIS SETTING IS HIDDEN BY DEFAULT
+  debug:
+    enabled-debug-categories:
+      in-list: []
+
+  #### Integration Settings
+  # Configure some aspects about LevelledMobs' integrations
+  # here. Integrations are cooperation layers between
+  # LevelledMobs and another plugin.
+  #### THIS SETTING IS HIDDEN BY DEFAULT
+  integration:
+    enabled-internal-integrations:
+      is-not-in-list: []
+
+  #### Minimum Level Limiter
+  # A hard limiter on what the minimum possible level is
+  # in LevelledMobs. Has priority over everything, even
+  # summon overrides. Negative values are hard-coded to
+  # not be possible as we are unsure of what damage it
+  # could cause to a server if someone decided to try it.
+  #### THIS SETTING IS HIDDEN BY DEFAULT
+  minimum-level: 1
+
+  #### Minimum Buff Multiplier Limiter
+  # A hard limiter on what the minimum possible buff
+  # multiplier is in LevelledMobs. Negative values are
+  # hard-coded to not be possible as we are unsure of
+  # what damage it could cause to a server if someone
+  # decided to try it.
+  #### THIS SETTING IS HIDDEN BY DEFAULT
+  minimum-buff-multiplier: 0.5
+
 
 #### File Metadata
 # Do not edit this section!
