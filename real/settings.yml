@@ -3,10 +3,45 @@
 # The Ultimate RPG Mob Levelling Plugin  #
 ##########################################
 
+# These comments will be beautified later on :)
+
+# LM 4 is based upon a Functions System
+#
+# Functions are used to configure the plugin up to an extreme degree. So much is
+# possible!
+#
+# Users can create as many functions as they want, they act like methods/functions in
+# programming languages.
+#
+# Functions have Processes in them, which contain the actual logic of the function.
+# Processes have a list of Conditions and Actions. All (or a specific % of) conditions
+# must be satisfied in a given Process in order for it to execute all of the Actions.
+# Actions can be things like 'Level this mob' or 'Send a chat message'. Conditions can be
+# things like 'Is this mob already levelled' or 'What world is this mob in'. There are also
+# actions which can modify the processing in a function, e.g. 'exit-function' is an action
+# which stops a given function from doing any more processing.
+# 
+# Functions are processed from top to bottom, same with processes, actions, and conditions.
+#
+# Functions can also call other functions by using an action. LevelledMobs will detect if a
+# function seems to have a circular dependency (e.g. function1 runs function2 which then
+# runs function1 again), it will simply run the 'exit-function' action automatically and
+# yell at the console. An advanced setting can disable the circular dependency detection.
 functions:
   'main':
+    # Descriptions can be optionally provided as a visual aid.
+    # Descriptions are stored internally in the code so that addon plugins e.g. GUIs are able
+    # to use the description value if they wish.
     description: 'This function automatically levels mobs, if they fit certain requirements.'
+    
+    # A list of events which will trigger this function automatically.
+    # 'on-mob-spawn' = EntitySpawnEvent
+    # 'on-mob-scan' = when LM automatically scans an entity async, some random LivingEntity.
     triggers: ['on-mob-spawn', 'on-mob-scan']
+
+    # Processes can be clumped together into Clusters. This allows a group of processes to be
+    # easily enabled/disabled. There is also an action to exit the current cluster. Clusters
+    # can be nested, though users should avoid this because it might look messy.
     processes:
       - process: 'check-not-levellable'
         description: 'Establishes conditions required for individual mobs to become levelled.'
@@ -35,12 +70,12 @@ functions:
             description: 'This tells LevelledMobs to not continue running this function for the mob.'
       - process: 'apply-level'
         do:
-          - action: 'set-nametag'
-            format: '[%entity-prefix%Lvl.%entity-level% | %entity-name% | %entity-health%/%entity-max-health%hp]'
-            visibility-duration: 1
-            visibility-methods: ['']
+          - action: 'set-packet-nametag'
+            formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
+            visibility-methods: ['TARGETED', 'ATTACKED']
+            visibility-duration: 5
           - action: 'set-level-inheritance'
-            description: 'Allow child and passenger mobs to inherit the mob''s level and stats.'
+            description: 'Allow child and passenger mobs to inherit the level and stats of the mob.'
             babies-inherit-level: true
             passengers-inherit-level: true
         use-presets: ['standard-difficulty']
@@ -78,79 +113,9 @@ functions:
 ##### install LevelledMobs on servers with existing worlds.
 scan-for-existing-mobs: true
 
-##### WARNING: This configuration section does not exist
-##### in the default file, on purpose. This is so regular
-##### users don't know it exists. They like to fiddle with
-##### things that say 'IRREVERSIBLE' and 'DO NOT EDIT' :)
-##### Not even this 'advanced:' header will exist by default!!
-advanced:
-
-  #### Buffed Drops Hard Nerf Settings
-  # Should certain types of levelled mobs have any
-  # buffed item or experience drops? Enabling this will
-  # likely have adverse effects on your server's economy.
-  #### THIS SETTING IS HIDDEN BY DEFAULT
-  buffed-drops-for:
-
-    # Mobs spawned from Monster Spawner blocks.
-    spawner-mobs: false
-
-    # Mobs that are bosses, such as Ender Dragons, Withers, etc.
-    boss-mobs: false
-
-  #### Update Checker Settings
-  # The update checker should only be disabled if it is
-  # causing any errors on your server.
-  # Keep LevelledMobs up-to-date.
-  #### THIS SETTING IS HIDDEN BY DEFAULT
-  update-checker:
-    enabled: true
-    notify:
-      players-with-permission: true
-      console-log: true
-
-  #### Debugging System Settings
-  # The debugging system is used by maintainers, developers
-  # and testers to check if things are working correctly
-  # behind the scenes. It sends 'useful spam' to your console
-  # logs which you need to sift through to find what you're
-  # looking for. You should not have any debugging enabled
-  # unless you are actively using the debug output.
-  # You can quickly enable all debugging by using...
-  #   not-in-list: []
-  # ...which will enable ALL debug categories.
-  #### THIS SETTING IS HIDDEN BY DEFAULT
-  debug:
-    enabled-debug-categories:
-      in-list: []
-
-  #### Integration Settings
-  # Configure some aspects about LevelledMobs' integrations
-  # here. Integrations are cooperation layers between
-  # LevelledMobs and another plugin.
-  #### THIS SETTING IS HIDDEN BY DEFAULT
-  integration:
-    enabled-internal-integrations:
-      is-not-in-list: []
-
-  #### Minimum Level Limiter
-  # A hard limiter on what the minimum possible level is
-  # in LevelledMobs. Has priority over everything, even
-  # summon overrides. Negative values are hard-coded to
-  # not be possible as we are unsure of what damage it
-  # could cause to a server if someone decided to try it.
-  #### THIS SETTING IS HIDDEN BY DEFAULT
-  minimum-level: 1
-
-  #### Minimum Buff Multiplier Limiter
-  # A hard limiter on what the minimum possible buff
-  # multiplier is in LevelledMobs. Negative values are
-  # hard-coded to not be possible as we are unsure of
-  # what damage it could cause to a server if someone
-  # decided to try it.
-  #### THIS SETTING IS HIDDEN BY DEFAULT
-  minimum-buff-multiplier: 0.5
-
+##### NOTE TO REVIEWERS: Check out the `demo/advanced_settings.yml` file
+##### to see all of the hidden Advanced Settings that can be present in
+##### this file upon manual inclusion from the user.
 
 #### File Metadata
 # Do not edit this section!

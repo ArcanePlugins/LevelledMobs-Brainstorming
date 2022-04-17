@@ -1,0 +1,24 @@
+# Here is a list of all of the actions!
+nametag-actions:
+  - action: 'set-packet-nametag'
+    description: 'Sets a LM2/3-style nametag on a mob'
+    formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
+    visibility-methods: ['TARGETED', 'ATTACKED']
+    visibility-duration: 5
+  - action: 'set-boss-bar-nametag'
+    description: 'Sets a boss-bar-style nametag on a mob'
+    formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
+    visibility-methods: ['ATTACKED']
+    visibility-duration: 3
+  - action: 'set-action-bar-nametag'
+    description: 'Sets an action-bar-style nametag on a mob'
+    formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
+    visibility-methods: ['ATTACKED']
+    visibility-duration: 3
+  - action: 'set-classic-nametag'
+    description: >
+      Sets a classic LM1-style nametag on a mob
+      This will be one of the 'hidden' features in the Wiki since this
+      system should not be used by anyone.
+    formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
+    visibility-type: 'ALWAYS' # 'HOVER' or 'ALWAYS' (CustomNameVisible)
