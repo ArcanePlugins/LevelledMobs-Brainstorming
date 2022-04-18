@@ -70,6 +70,8 @@ functions:
             description: 'This tells LevelledMobs to not continue running this function for the mob.'
       - process: 'apply-level'
         do:
+          - action: 'set-level'
+            use-presets: ['standard-difficulty']
           - action: 'set-packet-nametag'
             formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
             visibility-methods: ['TARGETED', 'ATTACKED']
@@ -78,7 +80,6 @@ functions:
             description: 'Allow child and passenger mobs to inherit the level and stats of the mob.'
             babies-inherit-level: true
             passengers-inherit-level: true
-        use-presets: ['standard-difficulty']
 
   'nametag-updater':
     description: 'This function automatically updates the nametags of levelled mobs.'

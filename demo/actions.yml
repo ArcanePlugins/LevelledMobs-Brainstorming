@@ -1,24 +1,89 @@
 # Here is a list of all of the actions!
-nametag-actions:
-  - action: 'set-packet-nametag'
-    description: 'Sets a LM2/3-style nametag on a mob'
-    formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
-    visibility-methods: ['TARGETED', 'ATTACKED']
-    visibility-duration: 5
-  - action: 'set-boss-bar-nametag'
-    description: 'Sets a boss-bar-style nametag on a mob'
-    formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
-    visibility-methods: ['ATTACKED']
-    visibility-duration: 3
-  - action: 'set-action-bar-nametag'
-    description: 'Sets an action-bar-style nametag on a mob'
-    formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
-    visibility-methods: ['ATTACKED']
-    visibility-duration: 3
-  - action: 'set-classic-nametag'
-    description: >
-      Sets a classic LM1-style nametag on a mob
-      This will be one of the 'hidden' features in the Wiki since this
-      system should not be used by anyone.
-    formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
-    visibility-type: 'ALWAYS' # 'HOVER' or 'ALWAYS' (CustomNameVisible)
+actions:
+
+  functions:
+
+    # Tells LM to immediately stop running a function
+    - action: 'exit-function'
+
+    # Tells LM to immediately stop running a process
+    - action: 'exit-process'
+
+    # Tells LM to immediately stop running a cluster
+    - action: 'exit-cluster'
+
+    # Tells LM to run another function, then continue
+    # the rest of the current function
+    - action: 'run-function'
+      id: 'my-function'
+
+  levelling:
+
+    # Adjust the level of a mob
+    - action: 'set-level'
+
+      # Using this formula removes the level for a mob and tells LM's scanner
+      # not to try level it again (except for force-all etc)
+      formula: 'no-level'
+
+
+    # Should attribute multipliers and levels be transferred from a parent mob
+    # to its child mobs? Child mobs are babies generated from breeding and/or
+    # 'passengers' riding the entity - configured below.
+    - action: 'set-level-inheritance'
+      babies-inherit-level: true
+      passengers-inherit-level: true
+
+  messaging:
+    
+    # Broadcasts a message to all players
+    - action: 'broadcast-message-to-server'
+      required-permission: 'you.can.set.a.perm.if.you.want'
+      message:
+        - '%prefix% Hello, world!'
+        - '%prefix% Goodbye, world!'
+    
+    # Broadcasts a message to entity/player's world
+    - action: 'broadcast-message-to-world'
+      required-permission: 'you.can.set.a.perm.if.you.want'
+      message:
+        - '%prefix% Hello, world!'
+        - '%prefix% Goodbye, world!'
+
+    # Broadcasts a message to all *nearby* players (relative to the entity/player)
+    - action: 'broadcast-message-to-nearby-players'
+      required-permission: 'you.can.set.a.perm.if.you.want'
+      message:
+        - '%prefix% Hello, world!'
+        - '%prefix% Goodbye, world!'
+
+  nametags:
+
+    # Sets a LM3-style nametag on a mob
+    - action: 'set-packet-nametag'
+      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
+      visibility-methods: ['TARGETED', 'ATTACKED']
+      visibility-duration: 5
+
+    # Sets a boss-bar-style nametag on a mob
+    - action: 'set-boss-bar-nametag'
+      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
+      visibility-methods: ['ATTACKED']
+      visibility-duration: 3
+
+    # Sets an action-bar-style nametag on a mob
+    - action: 'set-action-bar-nametag'
+      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
+      visibility-methods: ['ATTACKED']
+      visibility-duration: 3
+
+    # Sets a classic LM1-style nametag on a mob
+    # This will be one of the 'hidden' features in the Wiki since this
+    # system should not be used by anyone.
+    - action: 'set-classic-nametag'
+      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
+      visibility-type: 'ALWAYS' # 'HOVER' or 'ALWAYS' (CustomNameVisible)
+
+    # If targeting a player, it updates the nametags of all levelled mobs around the player.
+    # If targeting a levelled mob, it updates the nametag of the levelled mob to all nearby players.
+    - action: 'update-nametag'

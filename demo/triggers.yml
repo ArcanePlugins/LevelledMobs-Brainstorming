@@ -1,0 +1,35 @@
+# Here is a list of all of the triggers!
+triggers:
+
+  'on-mob-damage': >
+    Fires when a mob is damaged from environmental or unknown causes.
+  
+  'on-mob-damage-by-entity': >
+    Fires when an entity harms a mob.
+    Also fires 'on-mob-damage'.
+  
+  'on-mob-damage-by-player': >
+    Fires when a player harms a mob.
+    Also fires 'on-mob-damage'.
+
+  'on-mob-regain-health': >
+    Fires when a mob regains health.
+
+  'on-mob-scan': >
+    Fires when LevelledMobs scans a mob on the server.
+    Scanned mobs can be levelled or not levelled.
+
+  'on-mob-spawn': >
+    Fires when an entity has spawned with EntitySpawnEvent.
+
+  'on-mob-target': >
+    Fires when a mob starts targeting a player.
+
+  'on-mob-track': >
+    Fires when a mob starts tracking a player.
+
+  'on-player-join': >
+    Fires when a player joins the server.
+  
+  'on-player-teleport': >
+    Fires when a player teleports somewhere.

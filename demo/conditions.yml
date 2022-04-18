@@ -1,0 +1,25 @@
+# Here is a list of all of the conditions!
+conditions:
+
+  entities:
+    # Check if a mob has a certain entity type
+    # E.g. this checks if a mob is either a creeper or ender dragon
+    - check: 'entity-type'
+      in-list: ['CREEPER', 'ENDER_DRAGON']
+
+  integrations:
+
+    # Check if a certain mob is already 'owned' by another plugin.
+    # For example, this checks if a mob is owned by EliteMobs.
+    - check: 'mob-owner'
+      in-list: ['ELITE_MOBS']
+
+  levelling:
+
+    # Allows checking if a mob is levelled or not.
+    - check: 'levelled-state'
+
+      # 'LEVELLED': the mob must be levelled
+      # 'NOT_LEVELLED': the mob must not be levelled
+      # 'EITHER': the mob can be levelled or not levelled
+      required-state: 'LEVELLED'
