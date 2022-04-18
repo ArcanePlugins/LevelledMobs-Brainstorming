@@ -1,0 +1,48 @@
+###############
+# presets.yml #
+###############
+presets:
+  - preset: 'hello'
+    description: 'Some example preset'
+    # The body of a preset has the identical structure to the body of a preset!
+    if:
+      # presets can create conditions
+      - check: 'is-levelled'
+        required-state: 'NOT_LEVELLED'
+    do:
+      # presets can create actions
+      - action: 'broadcast-message-to-server'
+        message: ['%prefix% Hello, world!']
+      - action: 'exit-function'
+
+    # if a condition or action is not present in the underlying Process(es) using this preset,
+    # then LevelledMobs just adds the action/condition at the bottom of the existing list of
+    # conditions and actions
+
+  - preset: 'goodbye'
+    description: 'Some example preset bla bla bla'
+    do:
+      - action: 'broadcast-message-to-world'
+        message: ['%prefix% Hello, world!']
+
+
+################
+# settings.yml #
+################
+functions:
+  - function: 'main'
+    processes:
+      - process: 'some-process'
+        if:
+          - check: 'entity-type'
+            in-list: ['CREEPER']
+        use-presets: ['hello']
+      - process: 'another-process'
+        do:
+          - action: 'broadcast-message-to-world'
+            message: ['cool', 'stuff', 'bro']
+        use-presets: ['goodbye', 'hello']
+        # presets are inherited from top to bottom of the list (left to right).
+        # i.e. 'goodbye' takes precedence over 'hello' if they have duplicates.
+      - process: 'yet-another-process'
+        use-presets: ['goodbye']

@@ -1,11 +1,76 @@
+# TODO:
+# - add per-process option that allows a process to state 'only % of conditions are required'
+# - elaborate on how LM can source a world's spawnpoint
+#   from multiple plugins as integrations, e.g. Essentials,
+#   PhantomWorlds, and also Bukkit as a default. "SpawnpointProvider"
+#   Unsure about Multiverse, probably overkill considering it is quite dead
+#   and including it would fatten the binary size.
+
+# Conditions *intentionally* not present from LM3:
+# - apply-above-y and apply-below-y
+#   Use a 'custom' condition instead to work with
+#   any coordinate values.
+
 # Here is a list of all of the conditions!
 conditions:
 
-  entities:
+  generic:
     # Check if a mob has a certain entity type
     # E.g. this checks if a mob is either a creeper or ender dragon
-    - check: 'entity-type'
+    - check: 'mob-type'
       in-list: ['CREEPER', 'ENDER_DRAGON']
+
+    # Check if a mob has spawned for a certain reason
+    # E.g. this checks if the mob was spawned from a spawner, or spawned naturally
+    - check: 'mob-spawn-reason'
+      in-list: ['SPAWNER', 'NATURAL']
+
+    # Check if the mob is currently in a certain world
+    # Note: there is also 'player-world'
+    - check: 'mob-world'
+      in-list: ['world', 'world_the_end', 'world_nether', 'spawn']
+
+    # Self explanatory
+    # Note: there is also 'player-biome'
+    - check: 'mob-biome'
+      in-list: ['JUNGLE']
+
+    # Chance out of 100 that this condition will return 'true'.
+    - check: 'chance'
+      of: 100
+
+    # Check if the mob's nametag contains any of the entries
+    # Note: This is NOT the LevelledMobs nametag! This is
+    # checking the *actual* nametag of the mob, i.e. ones
+    # named using a nametag item or edited by a plugin.
+    #
+    # You can use '*' to check if the mob has any nametag at all.
+    #
+    # Note: there is also 'player-name-contains' and also
+    # a variant that checks for exact matches instead of contains,
+    # also for mobs and players respectively.
+    - check: 'mob-nametag-contains'
+      in-list: ['jeff', 'mary', 'Sam']
+
+    # Check if the mob is a certain distance away from the
+    # spawnpoint of the world it is in
+    # Equivalent condition exists for players as well
+    - check: 'mob-distance-from-spawn'
+      between: '0-100'
+
+    # Check if the mob is tamed
+    - check: 'mob-tamed'
+      required-state: 'TAMED' # TAMED, NOT_TAMED.
+
+    # Checks if a mob has a certain scoreboard tag
+    # If 'not-in-list' is used, it inverts the condition
+    - check: 'mob-scoreboard-tags'
+      in-list: ['scoreboard-tag-example']
+
+    # Checks if the mob's world's time in ticks is between two values
+    # Equivalent condition exists for players as well
+    - check: 'mob-world-time-ticks'
+      between: '0-24000'
 
   integrations:
 
@@ -14,12 +79,51 @@ conditions:
     - check: 'mob-owner'
       in-list: ['ELITE_MOBS']
 
+    # Check if the mob is currently in a WorldGuard region.
+    # Note: there is also player-worldguard-region.
+    # E.g. this checks if a mob is in the 'spawn' region.
+    - check: 'mob-worldguard-region'
+      not-in-list: ['spawn']
+
+    # Checks if a mob's MythicMobs name is in a list.
+    - check: 'mob-mythicmobs-name'
+      in-list: ['SKELETON_KING']
+
   levelling:
 
     # Allows checking if a mob is levelled or not.
-    - check: 'levelled-state'
+    # Can also check if it has a certain value.
+    - check: 'mob-level'
 
       # 'LEVELLED': the mob must be levelled
       # 'NOT_LEVELLED': the mob must not be levelled
       # 'EITHER': the mob can be levelled or not levelled
       required-state: 'LEVELLED'
+
+      # Check if a mob's level is between two values.
+      #
+      # If this check runs on a mob that has no level, it
+      # returns 'false'.
+      between: '0-100'
+
+    # Check if a mob was spawned by a LevelledMobs Mob Spawner
+    # which has a certain name.
+    - check: 'mob-spawner-name'
+      in-list: ['cool-zombie-spawner', 'Penals-Spawner']
+
+  player:
+
+    # Check if a player has a certain list of permissions
+    - check: 'player-permission'
+      required-permissions: ['essentials.help']
+  
+  advanced:
+
+    # Custom checks allow you to use various placeholders
+    # to achieve more fine grained things.
+    # This uses the Crunch library to evaluate boolean
+    # expressions.
+    # This example checks if the mob's X coordinate is
+    # greater than 2,950.
+    - check: 'custom'
+      formula: '%mob-coordinate-x% > 2950'

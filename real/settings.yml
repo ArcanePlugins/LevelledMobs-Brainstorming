@@ -3,7 +3,8 @@
 # The Ultimate RPG Mob Levelling Plugin  #
 ##########################################
 
-# These comments will be beautified later on :)
+# These comments are also only here for brainstorming purposes
+# 99% of them will be removed once the file is considered finished
 
 # LM 4 is based upon a Functions System
 #
@@ -28,7 +29,7 @@
 # runs function1 again), it will simply run the 'exit-function' action automatically and
 # yell at the console. An advanced setting can disable the circular dependency detection.
 functions:
-  'main':
+  - function: 'mob-leveller'
     # Descriptions can be optionally provided as a visual aid.
     # Descriptions are stored internally in the code so that addon plugins e.g. GUIs are able
     # to use the description value if they wish.
@@ -45,66 +46,89 @@ functions:
     processes:
       - process: 'check-not-levellable'
         description: 'Establishes conditions required for individual mobs to become levelled.'
+        use-presets: ['average-challenge']
         if:
+          
+          # This condition makes sure that levels are only assigned to mobs
+          # that don't already have a level.
           - check: 'levelled-state'
-            description: 'This check makes sure that the mob being checked is not already levelled.'
             required-state: 'NOT_LEVELLED'
-          - check: 'world-name'
-            description: 'A list of world names which mobs cannot be levelled in.'
+
+          # This condition allows you to specify what world names should NOT
+          # have newly spawned mobs to be levelled by LevelledMobs.
+          - check: 'world'
             case-sensitivity: true
-            in-list: []
+            in-list: ['example_world_123']
+
+          # This condition allows you to specify what entity types should NOT
+          # be levelled by LevelledMobs.
           - check: 'entity-type'
             description: >
               A list of mob entity types which are not allowed to become levelled.
               Note: you may want to consider nerfing the attribute multipliers on
               the mob instead of making it not levelled.
             in-list: []
+
+          # This condition allows you to specify a list of plugin names which
+          # should skip LevelledMobs' compatibility checks. For example,
+          # you can specify 'DangerousCaves' in the list to make DangerousCaves'
+          # mobs levelled by LevelledMobs. By default, we aim to only level mobs
+          # that are *not* managed by other plugins.
+          # You may have noticed that '*not* in list' is used instead of 'in list',
+          # this is done as we want to block all MobOwner plugins by default.
           - check: 'mob-owner'
             description: 'A list of MobOwner plugin integration names which are allowed to become levelled.'
             not-in-list: []
+
+        # A list of actions that this process will run, if the conditions are met.
         do:
+
+          # This action tells LevelledMobs that the mob should not
+          # receive any level, i.e., LevelledMobs should ignore it.
           - action: 'set-level'
-            description: 'This tells LevelledMobs to not level the mob.'
             formula: 'no-level'
+
+          # This action tells LevelledMobs to not process the rest of
+          # the function any further. If this is otherwise omitted,
+          # then LevelledMobs will run the 'apply-level' process below,
+          # effectively making the 'check-not-levellable' process
+          # useless.
           - action: 'exit-function'
-            description: 'This tells LevelledMobs to not continue running this function for the mob.'
+
       - process: 'apply-level'
         do:
           - action: 'set-level'
-            use-presets: ['standard-difficulty']
+            formula: '%weighted-random-level%'
+            strategies:
+              weighted-random:
+                tiers:
+                  '1-20': 8
+                  '21-40': 6
+                  '41-60': 4
+                  '61-80': 2
+                  '81-100': 1
+            # The difficulty preset will put set-level at this certain position,
+            # instead of putting it at the bottom of this actions list.
+          - placeholder: 'set-buffs'
           - action: 'set-packet-nametag'
             formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
             visibility-methods: ['TARGETED', 'ATTACKED']
             visibility-duration: 5
           - action: 'set-level-inheritance'
-            description: 'Allow child and passenger mobs to inherit the level and stats of the mob.'
             babies-inherit-level: true
             passengers-inherit-level: true
 
-  'nametag-updater':
+  - function: 'nametag-updater'
     description: 'This function automatically updates the nametags of levelled mobs.'
     triggers: ['on-mob-damage', 'on-mob-regain-health', 'on-player-join', 'on-player-teleport', 'on-mob-track']
     processes:
       - process: 'update-nametag-for-mob'
-        description: 'Update the nametag of the mob'
         if:
           - check: 'levelled-state'
             description: 'Check if the mob is not levelled'
             required-state: 'LEVELLED'
         do:
           - action: 'update-nametag'
-
-  'example-function':
-    description: 'This function is just an example which is not used by default.'
-    triggers: []
-    processes:
-      - process: 'broadcast-a-message'
-        description: 'Broadcasts a cool message to everyone on the server'
-        do:
-          - action: 'broadcast-message-to-server'
-            message:
-              - '%prefix% Hello, world!'
-              - '%prefix% ...another line!'
 
 # Should LevelledMobs asynchronously scan for pre-existing mobs to level?
 #
