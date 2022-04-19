@@ -24,8 +24,8 @@ defaults:
   remove-vanilla-drops: false
   no-multiplier: false
   only-drop-items-if-equipped: false
-  group-id: 0
-  max-drop-group: 1
+  group-id: '0'
+  max-drops-in-group: 1
   priority: 0
 
 # Section 2 - Entity-Specific Drops
@@ -44,7 +44,7 @@ drop-tables:
         exclude-spawner-mobs: true
       no-multiplier: true
       amount: 1
-      group-id: 1
+      group-id: '1'
 
     rocks:
       material: 'COBBLESTONE'
@@ -53,7 +53,7 @@ drop-tables:
         exclude-spawner-mobs: true
       no-multiplier: true
       amount: 1
-      group-id: 1
+      group-id: '1'
 
   example_nether:
     nether-rocks:
@@ -63,7 +63,7 @@ drop-tables:
         exclude-spawner-mobs: true
       no-multiplier: true
       amount: 1
-      group-id: 2
+      group-id: '2'
 
     soul-sand:
       material: 'SOUL_SAND'
@@ -72,7 +72,7 @@ drop-tables:
         exclude-spawner-mobs: true
       no-multiplier: true
       amount: 1
-      group-id: 2
+      group-id: '2'
 
 # Section 4 - per-group drop limits
 group-drop-limits:
@@ -82,6 +82,7 @@ group-drop-limits:
   # chance of being selected.
   '2': 5
   '3': 1
+  'example': 7
 
 #### File Metadata
 # Do not edit this section!
