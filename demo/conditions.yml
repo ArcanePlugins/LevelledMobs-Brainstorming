@@ -1,5 +1,4 @@
 # TODO:
-# - add per-process option that allows a process to state 'only % of conditions are required'
 # - elaborate on how LM can source a world's spawnpoint
 #   from multiple plugins as integrations, e.g. Essentials,
 #   PhantomWorlds, and also Bukkit as a default. "SpawnpointProvider"
