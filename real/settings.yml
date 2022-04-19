@@ -5,8 +5,9 @@
 
 # These comments are also only here for brainstorming purposes
 # 99% of them will be removed once the file is considered finished
+# ^^ most of them are only to explain what is going on in LM 4.
 
-# LM 4 is based upon a Functions System
+# LM 4 is based upon a Functions System, instead of LM 3's Rules System. They are quite similar.
 #
 # Functions are used to configure the plugin up to an extreme degree. So much is
 # possible!
@@ -30,9 +31,6 @@
 # yell at the console. An advanced setting can disable the circular dependency detection.
 functions:
   - function: 'mob-leveller'
-    # Descriptions can be optionally provided as a visual aid.
-    # Descriptions are stored internally in the code so that addon plugins e.g. GUIs are able
-    # to use the description value if they wish.
     description: 'This function automatically levels mobs, if they fit certain requirements.'
     
     # A list of events which will trigger this function automatically.
@@ -111,23 +109,34 @@ functions:
             # instead of putting it at the bottom of this actions list.
           - placeholder: 'set-buffs'
           - action: 'set-packet-nametag'
+            # TODO add color
             formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
             visibility-methods: ['TARGETED', 'ATTACKED']
             visibility-duration: 5
+          - action: 'set-death-nametag'
+            # TODO add color
+            formula: '[Lvl %mob-lvl% | %prefix%%Mobname%%suffix%]'
           - action: 'set-level-inheritance'
             babies-inherit-level: true
             passengers-inherit-level: true
 
   - function: 'nametag-updater'
-    description: 'This function automatically updates the nametags of levelled mobs.'
-    triggers: ['on-mob-damage', 'on-mob-regain-health', 'on-player-join', 'on-player-teleport', 'on-mob-track']
+    description: 'This function updates the nametags of levelled mobs automatically.'
+    triggers:
+      - 'on-mob-damage'
+      - 'on-mob-regain-health'
+      - 'on-player-join'
+      - 'on-player-teleport'
+      - 'on-mob-track'
+      - 'on-mob-scan'
     processes:
       - process: 'update-nametag-for-mob'
         if:
+          # Make sure this process only affects levelled mobs.
           - check: 'levelled-state'
-            description: 'Check if the mob is not levelled'
             required-state: 'LEVELLED'
         do:
+          # Update the nametag of the mob.
           - action: 'update-nametag'
 
 # Should LevelledMobs asynchronously scan for pre-existing mobs to level?
@@ -137,6 +146,16 @@ functions:
 ##### disable this. This is enabled by default as most server owners likely
 ##### install LevelledMobs on servers with existing worlds.
 scan-for-existing-mobs: true
+
+# The following settings are in regards to configuring
+# the '%levelledmobs_mob-target%' placeholder from PlaceholderAPI.
+mob-target-placeholder:
+
+  # Format to use if the mob target is a levelled mob.
+  levelled: 'default'
+
+  # Format to use if the mob target is *not* a levelled mob.
+  not-levelled: '%entity-name%'
 
 ##### NOTE TO REVIEWERS: Check out the `demo/advanced_settings.yml` file
 ##### to see all of the hidden Advanced Settings that can be present in

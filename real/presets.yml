@@ -3,6 +3,10 @@
 # The Ultimate RPG Mob Levelling Plugin  #
 ##########################################
 
+# TODO
+# - Check if the default multiplier values are alright
+# - Write buffs list for other presets
+
 # Welcome to the presets file! Here you can reduce the amount of boilerplate
 # you need to write in the functions system as presets essentially act as
 # 'copy and paste' bits for your functions. It can also be used to tidy up
@@ -30,6 +34,23 @@ presets:
               not-in-list: ['ENDERMAN', 'WITHER_SKELETON']
             attributes: ['GENERIC_MAX_HEALTH']
             multiplier-formula: '1 + (%mob-level-percent% * 4)'
+
+            # Should LevelledMobs adjust the mob's current health
+            # to match the previous health percentage they had,
+            # in accordance with their newfound max health value?
+            # This does not plainly reset their health, it tries to
+            # match the health ratio that the mob previously had.
+            #
+            # e.g. if a zombie spawns with 20/20HP, and its max health
+            # is set to 40HP, as the health percentage is 100% (20/20=100),
+            # then the zombie's current health will also be 40hp.
+            # Say that the zombie was damaged in a fight, it is now 10/40HP,
+            # and then its max health gets changed back to 20HP, so
+            # 10/40 is 25%, so the zombie's current health will be set to
+            # 5HP (now totalling 5HP out of 20HP).
+            #
+            # Defaults to: `true`
+            adjust-current-health: true
 
           - buff: 'movement-speed-boost'
             enabled: true

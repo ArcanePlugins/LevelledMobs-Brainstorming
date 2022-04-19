@@ -1,9 +1,49 @@
+# TODO List
+# - Actions to transfer:
+
+#   health-indicator:
+#     indicator: '█'
+#     indicator-half: '▌'
+#     scale: 4
+#     max: 5
+#     colored-tiers:
+#       tier-1: '&#22E76B' #Green
+#       tier-2: '&#528CFF' #Blue
+#       tier-3: '&#FFCD56' #Yellow
+#       tier-4: '&#FE803C' #Orange
+#       tier-5: '&#F2003D' #Red
+#       tier-6: '&#B447FF' #Purple
+#       tier-#: 'color'
+#       default: '&#FFFFFF' #White
+#     merge: true
+#     tiered-coloring:
+#       1-5: '&#22E76B' #Green
+#       6-10: '&#528CFF' #Blue
+#       11-15: '&#FFCD56' #Yellow
+#       16-20: '&#F2003D' #Red
+#       21-25: '&#B447FF' #Purple
+#       LVL-LVL: 'color'
+#       default: '&#FFFFFF' #White
+
+
 # Here is a list of all of the actions!
 actions:
+
+  customdrops:
+
+    # Sets the CustomDrops Drop-Table ID for the mob.
+    - action: 'set-drop-table-id'
+      id: 'newbie-mobs-table'
 
   functions:
 
     # Tells LM to immediately stop running a function
+    # Note: will only stop the current function - e.g.
+    # if Function1 calls Function2 and Function2 wants
+    # to run 'exit-function' then Function1 will still
+    # run after Function2 is done.
+    # See 'exit-all' if you want it to also cancel
+    # Function1.
     - action: 'exit-function'
 
     # Tells LM to immediately stop running a process
@@ -12,10 +52,24 @@ actions:
     # Tells LM to immediately stop running a cluster
     - action: 'exit-cluster'
 
+    # Tells LM to immediately stop running the base
+    # function, regardless if this is called in an
+    # embedded function. E.g. if Function1 calls
+    # Function2 which then calls Function3, and
+    # Function3 calls 'exit-all', then all of the
+    # three functions will immediately stop.
+    - action: 'exit-all'
+
     # Tells LM to run another function, then continue
-    # the rest of the current function
+    # the rest of the current function.
     - action: 'run-function'
       id: 'my-function'
+
+  integrations:
+
+    # Utilizes NBT-API to add an NBT tag to the mob.
+    - action: 'add-nbt-data'
+      tag: 'put nbt tag here'
 
   levelling:
 
@@ -57,33 +111,59 @@ actions:
         - '%prefix% Hello, world!'
         - '%prefix% Goodbye, world!'
 
+  mobs:
+    - action: 'set-mob-name-override'
+      mob-types:
+        ENDERMAN: ['Grass Block Collector'] # don't have to specify a level range.
+        SKELETON:
+          '1-50': 'Verta Brae'
+          '51-100': ['Billy Bones', 'Aimbot']
+        ZOMBIE:
+          '1-50': ['Flesh Muncher', 'Undead']
+          '51-98': ['Brains!!', 'Brains!?', '...got brains?']
+          '99': 'default' # Uses the default mob name, doesn't use the one from 'ALL' below.
+          '100': ['default', 'not default! :)'] # yep even this is possible - 50% chance = default.
+        ALL: # Default, applies to all mobs, but has the lowest priority.
+          '1-100': 'I am a mob that is not a skeleton!'
+
   nametags:
 
-    # Sets a LM3-style nametag on a mob
-    - action: 'set-packet-nametag'
+    # Sets a LM3-style label on a mob
+    - action: 'set-packet-label'
       formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
       visibility-methods: ['TARGETED', 'ATTACKED']
       visibility-duration: 5
 
-    # Sets a boss-bar-style nametag on a mob
-    - action: 'set-boss-bar-nametag'
+    # Sets a boss-bar-style label on a mob
+    - action: 'set-boss-bar-label'
       formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
       visibility-methods: ['ATTACKED']
       visibility-duration: 3
 
-    # Sets an action-bar-style nametag on a mob
-    - action: 'set-action-bar-nametag'
+    # Sets an action-bar-style label on a mob
+    - action: 'set-action-bar-label'
       formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
       visibility-methods: ['ATTACKED']
       visibility-duration: 3
 
-    # Sets a classic LM1-style nametag on a mob
+    # Sets a classic LM1-style label on a mob
     # This will be one of the 'hidden' features in the Wiki since this
     # system should not be used by anyone.
-    - action: 'set-classic-nametag'
+    - action: 'set-classic-label'
       formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
       visibility-type: 'ALWAYS' # 'HOVER' or 'ALWAYS' (CustomNameVisible)
 
-    # If targeting a player, it updates the nametags of all levelled mobs around the player.
-    # If targeting a levelled mob, it updates the nametag of the levelled mob to all nearby players.
-    - action: 'update-nametag'
+    # Sets the 'Death Label' of the mob, i.e. the name of the mob
+    # that appears in the death messages when it kills players
+    - action: 'set-death-label'
+      formula: '[Lvl %mob-lvl% %prefix%%mob-name%%suffix%]'
+
+    # Sets the 'Death Label' of TAMED mobs specifically (overrides death-nametag).
+    # This appears when the pet kills players and also when the pet dies.
+    - action: 'set-tamed-death-label'
+      formula: '%player-name%''s [Lvl %mob-lvl% %prefix%%mob-name%%suffix%]'
+
+    # This works on any mob and/or player trigger.
+    # If targeting a player, it updates the labels of all levelled mobs around the player.
+    # If targeting a levelled mob, it updates the label of the levelled mob to all nearby players.
+    - action: 'update-label'

@@ -48,7 +48,7 @@ conditions:
     # Note: there is also 'player-name-contains' and also
     # a variant that checks for exact matches instead of contains,
     # also for mobs and players respectively.
-    - check: 'mob-nametag-contains'
+    - check: 'mob-customname-contains'
       in-list: ['jeff', 'mary', 'Sam']
 
     # Check if the mob is a certain distance away from the
