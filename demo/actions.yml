@@ -1,30 +1,5 @@
 # TODO List
-# - Actions to transfer:
-
-#   health-indicator:
-#     indicator: '█'
-#     indicator-half: '▌'
-#     scale: 4
-#     max: 5
-#     colored-tiers:
-#       tier-1: '&#22E76B' #Green
-#       tier-2: '&#528CFF' #Blue
-#       tier-3: '&#FFCD56' #Yellow
-#       tier-4: '&#FE803C' #Orange
-#       tier-5: '&#F2003D' #Red
-#       tier-6: '&#B447FF' #Purple
-#       tier-#: 'color'
-#       default: '&#FFFFFF' #White
-#     merge: true
-#     tiered-coloring:
-#       1-5: '&#22E76B' #Green
-#       6-10: '&#528CFF' #Blue
-#       11-15: '&#FFCD56' #Yellow
-#       16-20: '&#F2003D' #Red
-#       21-25: '&#B447FF' #Purple
-#       LVL-LVL: 'color'
-#       default: '&#FFFFFF' #White
-
+# - health indicators
 
 # Here is a list of all of the actions!
 actions:
@@ -130,19 +105,20 @@ actions:
 
     # Sets a LM3-style label on a mob
     - action: 'set-packet-label'
-      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
+      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp | %mob-health-indicator-left%]'
       visibility-methods: ['TARGETED', 'ATTACKED']
       visibility-duration: 5
 
     # Sets a boss-bar-style label on a mob
+    # Note: this does not appear on boss mobs.
     - action: 'set-boss-bar-label'
-      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
+      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp | %mob-health-indicator%-left'
       visibility-methods: ['ATTACKED']
       visibility-duration: 3
 
     # Sets an action-bar-style label on a mob
     - action: 'set-action-bar-label'
-      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp'
+      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp | %mob-health-indicator%-left'
       visibility-methods: ['ATTACKED']
       visibility-duration: 3
 
@@ -150,18 +126,13 @@ actions:
     # This will be one of the 'hidden' features in the Wiki since this
     # system should not be used by anyone.
     - action: 'set-classic-label'
-      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
+      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp | %mob-health-indicator-left%]'
       visibility-type: 'ALWAYS' # 'HOVER' or 'ALWAYS' (CustomNameVisible)
 
     # Sets the 'Death Label' of the mob, i.e. the name of the mob
     # that appears in the death messages when it kills players
     - action: 'set-death-label'
       formula: '[Lvl %mob-lvl% %prefix%%mob-name%%suffix%]'
-
-    # Sets the 'Death Label' of TAMED mobs specifically (overrides death-nametag).
-    # This appears when the pet kills players and also when the pet dies.
-    - action: 'set-tamed-death-label'
-      formula: '%player-name%''s [Lvl %mob-lvl% %prefix%%mob-name%%suffix%]'
 
     # This works on any mob and/or player trigger.
     # If targeting a player, it updates the labels of all levelled mobs around the player.

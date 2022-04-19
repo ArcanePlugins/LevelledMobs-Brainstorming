@@ -110,7 +110,7 @@ functions:
           - placeholder: 'set-buffs'
           - action: 'set-packet-nametag'
             # TODO add color
-            formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp]'
+            formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp | %mob-health-indicator-left%]'
             visibility-methods: ['TARGETED', 'ATTACKED']
             visibility-duration: 5
           - action: 'set-death-nametag'
