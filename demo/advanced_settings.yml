@@ -51,7 +51,7 @@ advanced:
   #### THIS SETTING IS HIDDEN BY DEFAULT
   integration:
     enabled-internal-integrations:
-      is-not-in-list: []
+      not-in-list: []
 
   #### Minimum Level Limiter
   # A hard limiter on what the minimum possible level is

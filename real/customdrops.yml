@@ -11,13 +11,13 @@
 defaults:
   requirements:
     chance: 0.2
-    overall-chance: 0.0
+    overall-chance: -1
     min-level: -1
     max-level: -1
     exclude-spawner-mobs: false
     player-caused-death: true
   amount: 1
-  equipped-chance: 1.0
+  equipped-chance: -1
   custom-model-data: -1
   item-flags: []
   nbt-data: ''
@@ -37,8 +37,7 @@ entities:
 # Section 3 - Drop Tables
 drop-tables:
   example_overworld:
-    stick:
-      material: 'STICK'
+    - material: 'STICK'
       requirements:
         chance: 1.0
         exclude-spawner-mobs: true
@@ -46,8 +45,7 @@ drop-tables:
       amount: 1
       group-id: '1'
 
-    rocks:
-      material: 'COBBLESTONE'
+    - material: 'COBBLESTONE'
       requirements:
         chance: 1.0
         exclude-spawner-mobs: true
@@ -56,8 +54,7 @@ drop-tables:
       group-id: '1'
 
   example_nether:
-    nether-rocks:
-      material: 'NETHERRACK'
+    - material: 'NETHERRACK'
       requirements:
         chance: 1.0
         exclude-spawner-mobs: true
@@ -65,8 +62,7 @@ drop-tables:
       amount: 1
       group-id: '2'
 
-    soul-sand:
-      material: 'SOUL_SAND'
+    - material: 'SOUL_SAND'
       requirements:
         chance: 1.0
         exclude-spawner-mobs: true

@@ -82,6 +82,7 @@ actions:
     # Broadcasts a message to all *nearby* players (relative to the entity/player)
     - action: 'broadcast-message-to-nearby-players'
       required-permission: 'you.can.set.a.perm.if.you.want'
+      range: 48
       message:
         - '%prefix% Hello, world!'
         - '%prefix% Goodbye, world!'
@@ -92,7 +93,11 @@ actions:
         ENDERMAN: ['Grass Block Collector'] # don't have to specify a level range.
         SKELETON:
           '1-50': 'Verta Brae'
-          '51-100': ['Billy Bones', 'Aimbot']
+          '51-100': ['Billy Bones', 'Aimbot %mob-name-default%']
+                                              # You can also use any placeholders
+                                              # you want except %entity-name%! :)
+                                              # %mob-name-default% is the same as
+                                              # the default %mob-name% placeholder.
         ZOMBIE:
           '1-50': ['Flesh Muncher', 'Undead']
           '51-98': ['Brains!!', 'Brains!?', '...got brains?']
