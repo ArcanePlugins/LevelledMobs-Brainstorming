@@ -3,6 +3,11 @@
 # The Ultimate RPG Mob Levelling Plugin  #
 ##########################################
 
+# TODO: Welcome to the settings.yml To-Do List
+# TODO: 
+# TODO: - Clarify prefix and suffix placeholders for LM labels.
+# TODO: - Make the label formulas look all nice and formatted.
+
 # These comments are also only here for brainstorming purposes
 # 99% of them will be removed once the file is considered finished
 # ^^ most of them are only to explain what is going on in LM 4.
