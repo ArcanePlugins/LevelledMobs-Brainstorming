@@ -125,14 +125,7 @@ actions:
     - action: 'set-action-bar-label'
       formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp | %mob-health-indicator%-left'
       visibility-methods: ['ATTACKED']
-      visibility-duration: 3
-
-    # Sets a classic LM1-style label on a mob
-    # This will be one of the 'hidden' features in the Wiki since this
-    # system should not be used by anyone.
-    - action: 'set-classic-label'
-      formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp | %mob-health-indicator-left%]'
-      visibility-type: 'ALWAYS' # 'HOVER' or 'ALWAYS' (CustomNameVisible)
+      # Note: does not have visibility duration!
 
     # Sets the 'Death Label' of the mob, i.e. the name of the mob
     # that appears in the death messages when it kills players
