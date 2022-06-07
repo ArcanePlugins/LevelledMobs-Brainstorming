@@ -2,8 +2,8 @@
 # TODO add more triggers, add more conditions, placeholders.
 triggers:
 
-  'on-mob-damage': >
-    About:
+  on-mob-damage:
+    About: >
       Fires when a mob is damaged from environmental or unknown causes.
     Conditions:
       - check: 'damage-cause'
@@ -13,38 +13,38 @@ triggers:
         causes:
           SUNLIGHT: 2
           FIRE_TICK: 5
-    Placeholders:
+    Placeholders: >
       - %damage-cause%
   
-  'on-mob-damage-by-entity': >
-    About:
+  on-mob-damage-by-entity:
+    About: >
       Fires when an entity harms a mob.
       Also fires 'on-mob-damage'.
       Inherits conditions, actions, and placeholders from on-mob-damage.
   
-  'on-mob-damage-by-player': >
-    About:
+  on-mob-damage-by-player:
+    About: >
       Fires when a player harms a mob.
       Also fires 'on-mob-damage'.
 
-  'on-mob-regain-health': >
+  on-mob-regain-health: >
     Fires when a mob regains health.
 
-  'on-mob-scan': >
+  on-mob-scan: >
     Fires when LevelledMobs scans a mob on the server.
     Scanned mobs can be levelled or not levelled.
 
-  'on-mob-spawn': >
+  on-mob-spawn: >
     Fires when an entity has spawned with EntitySpawnEvent.
 
-  'on-mob-target': >
+  on-mob-target: >
     Fires when a mob starts targeting a player.
 
-  'on-mob-track': >
+  on-mob-track: >
     Fires when a mob starts tracking a player.
 
-  'on-player-join': >
+  on-player-join: >
     Fires when a player joins the server.
   
-  'on-player-teleport': >
+  on-player-teleport: >
     Fires when a player teleports somewhere.

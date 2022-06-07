@@ -144,6 +144,18 @@ functions:
           # Update the nametag of the mob.
           - action: 'update-nametag'
 
+# What translation would you like to use?
+# By default this will choose 'en_US.yml' in the directory 'plugins/LevelledMobs/translations/'.
+#
+# Inbuilt translations you can use:
+# - de_DE   (German / Deutsche)
+# - en_AU   (English - Australia)
+# - en_GB   (English - United Kingdom)
+# - en_US   (English - United States of America)
+# - es_ES   (Spanish / Español)
+# - fr_FR   (French / Français)
+lang: 'en_US'
+
 # Should LevelledMobs asynchronously scan for pre-existing mobs to level?
 #
 ##### Move to wiki:
@@ -170,5 +182,5 @@ mob-target-placeholder:
 # Do not edit this section!
 metadata:
   version:
-    original: 999
-    current: 999
+    original: 34
+    current: 34
