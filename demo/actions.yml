@@ -6,12 +6,16 @@ actions:
 
   customdrops:
 
+    # Status: DONE
     # Sets the CustomDrops Drop-Table ID for the mob.
     - action: 'set-drop-table-id'
       id: 'newbie-mobs-table'
+      # or...
+      ids: ['hello', 'there']
 
   functions:
 
+    # Status: DONE
     # Tells LM to immediately stop running a function
     # Note: will only stop the current function - e.g.
     # if Function1 calls Function2 and Function2 wants
@@ -21,12 +25,11 @@ actions:
     # Function1.
     - action: 'exit-function'
 
+    # Status: DONE
     # Tells LM to immediately stop running a process
     - action: 'exit-process'
 
-    # Tells LM to immediately stop running a cluster
-    - action: 'exit-cluster'
-
+    # Status: DONE
     # Tells LM to immediately stop running the base
     # function, regardless if this is called in an
     # embedded function. E.g. if Function1 calls
@@ -35,6 +38,7 @@ actions:
     # three functions will immediately stop.
     - action: 'exit-all'
 
+    # Status: DONE
     # Tells LM to run another function, then continue
     # the rest of the current function.
     - action: 'run-function'
@@ -42,12 +46,14 @@ actions:
 
   integrations:
 
+    # Status: NOT DONE
     # Utilizes NBT-API to add an NBT tag to the mob.
     - action: 'add-nbt-data'
       tag: 'put nbt tag here'
 
   levelling:
 
+    # Status: NOT DONE
     # Adjust the level of a mob
     - action: 'set-level'
 
@@ -56,6 +62,7 @@ actions:
       formula: 'no-level'
 
 
+    # Status: NOT DONE
     # Should attribute multipliers and levels be transferred from a parent mob
     # to its child mobs? Child mobs are babies generated from breeding and/or
     # 'passengers' riding the entity - configured below.
@@ -65,6 +72,7 @@ actions:
 
   messaging:
     
+    # Status: DONE
     # Broadcasts a message to all players
     - action: 'broadcast-message-to-server'
       required-permission: 'you.can.set.a.perm.if.you.want'
@@ -72,6 +80,7 @@ actions:
         - '%prefix% Hello, world!'
         - '%prefix% Goodbye, world!'
     
+    # Status: DONE
     # Broadcasts a message to entity/player's world
     - action: 'broadcast-message-to-world'
       required-permission: 'you.can.set.a.perm.if.you.want'
@@ -79,6 +88,7 @@ actions:
         - '%prefix% Hello, world!'
         - '%prefix% Goodbye, world!'
 
+    # Status: DONE
     # Broadcasts a message to all *nearby* players (relative to the entity/player)
     - action: 'broadcast-message-to-nearby-players'
       required-permission: 'you.can.set.a.perm.if.you.want'
@@ -88,6 +98,7 @@ actions:
         - '%prefix% Goodbye, world!'
 
   mobs:
+    # Status: NOT DONE
     - action: 'set-mob-name-override'
       mob-types:
         ENDERMAN: ['Grass Block Collector'] # don't have to specify a level range.
@@ -108,12 +119,14 @@ actions:
 
   nametags:
 
+    # Status: NOT DONE
     # Sets a LM3-style label on a mob
     - action: 'set-packet-label'
       formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp | %mob-health-indicator-left%]'
       visibility-methods: ['TARGETED', 'ATTACKED']
       visibility-duration: 5
 
+    # Status: NOT DONE
     # Sets a boss-bar-style label on a mob
     # Note: this does not appear on boss mobs.
     - action: 'set-boss-bar-label'
@@ -121,17 +134,20 @@ actions:
       visibility-methods: ['ATTACKED']
       visibility-duration: 3
 
+    # Status: NOT DONE
     # Sets an action-bar-style label on a mob
     - action: 'set-action-bar-label'
       formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix%]: %mob-health%/%mob-max-health%hp | %mob-health-indicator%-left'
       visibility-methods: ['ATTACKED']
       # Note: does not have visibility duration!
 
+    # Status: NOT DONE
     # Sets the 'Death Label' of the mob, i.e. the name of the mob
     # that appears in the death messages when it kills players
     - action: 'set-death-label'
       formula: '[Lvl %mob-lvl% %prefix%%mob-name%%suffix%]'
 
+    # Status: NOT DONE
     # This works on any mob and/or player trigger.
     # If targeting a player, it updates the labels of all levelled mobs around the player.
     # If targeting a levelled mob, it updates the label of the levelled mob to all nearby players.
