@@ -71,6 +71,7 @@ advanced:
   #### THIS SETTING IS HIDDEN BY DEFAULT
   minimum-buff-multiplier: 0.5
 
+  # Status: DONE
   #### Circular Dependency Detection in Functions
   # This toggles whether LevelledMobs will detect if
   # a Function is calling another function which then

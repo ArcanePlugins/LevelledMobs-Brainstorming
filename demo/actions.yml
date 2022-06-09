@@ -46,10 +46,12 @@ actions:
 
   integrations:
 
-    # Status: NOT DONE
+    # Status: DONE
     # Utilizes NBT-API to add an NBT tag to the mob.
     - action: 'add-nbt-data'
       tag: 'put nbt tag here'
+      # or...
+      tags: ['hello', 'there']
 
   levelling:
 
