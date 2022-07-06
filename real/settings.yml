@@ -110,9 +110,9 @@ functions:
                   '41-60': 4
                   '61-80': 2
                   '81-100': 1
-            # The difficulty preset will put set-level at this certain position,
+            # The difficulty preset will put set-buffs at this certain position,
             # instead of putting it at the bottom of this actions list.
-          - placeholder: 'set-buffs'
+          - socket: 'set-buffs'
           - action: 'set-packet-nametag'
             # TODO add color
             formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp | %mob-health-indicator-left%]'

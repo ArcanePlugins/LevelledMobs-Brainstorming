@@ -1,5 +1,7 @@
 # TODO List
+# - show configuration for all levelling strategies
 # - health indicators
+# - buffs
 
 # Here is a list of all of the actions!
 actions:
@@ -48,7 +50,7 @@ actions:
 
     # Status: DONE
     # Utilizes NBT-API to add an NBT tag to the mob.
-    - action: 'add-nbt-data'
+    - action: 'add-nbt-tag'
       tag: 'put nbt tag here'
       # or...
       tags: ['hello', 'there']
@@ -63,12 +65,10 @@ actions:
       # not to try level it again (except for force-all etc)
       formula: 'no-level'
 
-
-    # Status: NOT DONE
-    # Should attribute multipliers and levels be transferred from a parent mob
-    # to its child mobs? Child mobs are babies generated from breeding and/or
-    # 'passengers' riding the entity - configured below.
-    - action: 'set-level-inheritance'
+      # Should attribute multipliers and levels be transferred from a parent mob
+      # to its child mobs? Child mobs are babies generated from breeding and/or
+      # 'passengers' riding the entity - configured below.
+      # Note: when levels are inherited, the formula is not ran.
       babies-inherit-level: true
       passengers-inherit-level: true
 
