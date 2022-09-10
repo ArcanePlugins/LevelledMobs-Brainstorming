@@ -1,4 +1,5 @@
 # TODO:
+# - change 'mob' to 'entity' in all IDs
 # - elaborate on how LM can source a world's spawnpoint
 #   from multiple plugins as integrations, e.g. Essentials,
 #   PhantomWorlds, and also Bukkit as a default. "SpawnpointProvider"
@@ -106,7 +107,7 @@ conditions:
     # Status: NOT DONE
     # Allows checking if a mob is levelled or not.
     # Can also check if it has a certain value.
-    - check: 'mob-level'
+    - check: 'entity-level'
 
       # Status: NOT DONE
       # 'LEVELLED': the mob must be levelled
@@ -119,7 +120,7 @@ conditions:
       #
       # If this check runs on a mob that has no level, it
       # returns 'false'.
-      value: '0-100'
+      range: '0-100'
 
     # Status: NOT DONE
     # Check if a mob was spawned by a LevelledMobs Mob Spawner

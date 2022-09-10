@@ -41,7 +41,7 @@ advanced:
   # ...which will enable ALL debug categories.
   #### THIS SETTING IS HIDDEN BY DEFAULT
   debug:
-    enabled-debug-categories:
+    enabled-categories:
       in-list: []
 
   #### Integration Settings
