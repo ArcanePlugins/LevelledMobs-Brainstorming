@@ -49,7 +49,6 @@ functions:
     processes:
       - process: 'check-not-levellable'
         description: 'Establishes conditions required for individual mobs to become levelled.'
-        use-presets: ['average-challenge']
         if:
           
           # This condition makes sure that levels are only assigned to mobs
@@ -112,7 +111,8 @@ functions:
                   '81-100': 1
             # The difficulty preset will put set-buffs at this certain position,
             # instead of putting it at the bottom of this actions list.
-          - socket: 'set-buffs'
+          - action: 'set-buffs'
+            use-presets: ['average-challenge']
           - action: 'set-packet-nametag'
             # TODO add color
             formula: '[Lvl %mob-lvl% | %prefix%%mob-name%%suffix% | %mob-health%/%mob-max-health%hp | %mob-health-indicator-left%]'
