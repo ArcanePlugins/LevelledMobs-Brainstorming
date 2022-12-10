@@ -88,3 +88,11 @@ advanced:
   # function that it is detected in.
   #### THIS SETTING IS HIDDEN BY DEFAULT
   circular-function-dependency-detection: true
+
+  set-level-action:
+    inheritance:
+      breeding:
+        differing-formulas: USE_AVERAGE
+        # USE_AVERAGE to use both and average the result
+        # or USE_RANDOM to pick either randomly
+        # or USE_NEITHER to skip any inheritance logic and proceed normally

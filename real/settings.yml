@@ -101,6 +101,15 @@ functions:
         do:
           - action: 'set-level'
             formula: '%weighted-random-level%'
+            inheritance:
+              # If this entity has level inheritance available, then use that instead of this formula.
+              use-if-available: true
+
+              # These formulas are stored on the parent, and applied to their children.
+              breeding:
+                formula: '(%father-level% + %mother-level%) / 2'
+              transformation:
+                formula: '%mother-level%' # note: mother == father for transformation. 
             strategies:
               weighted-random:
                 tiers:
