@@ -29,12 +29,12 @@ rules:
         use-presets: ["average-challenge"]
 
       - action: "set-packet-label"
-        formula: "&8&l༺ &bLvl.%entity-level%&f %entity-prefix%&f%entity-name%&f%entity-suffix%&8 • &7%entity-health-rounded%&8/&7%entity-max-health-rounded%&c♥ &8&l༻"
+        formula: "&8&l༺ %tiered-color%Lvl %entity-level%&r %entity-prefix%&r%entity-name%&r%entity-suffix%&r&8 • &7%entity-health-rounded%&r&8/&7%entity-max-health-rounded%&r%tiered-color%♥&r &8&l༻"
         visibility-methods: ["TARGETED", "ATTACKED"]
         visibility-duration: "5s"
 
       - action: "set-death-label"
-        formula: "[Lvl.%entity-level%](color=aqua) %entity-prefix%%entity-name%%entity-suffix%"
+        formula: "[Level %entity-level%](color=%tiered-color%) %entity-prefix%%entity-name%%entity-suffix%"
     else:
       - action: "set-level"
         formula: "no-level"
