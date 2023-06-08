@@ -1,0 +1,86 @@
+##########################################
+#           ~ LevelledMobs v4 ~          #
+# The Ultimate RPG Mob Levelling Plugin  #
+##########################################
+
+rules:
+  - rule: "entity-leveller"
+    triggers: ["on-entity-spawn", "on-entity-scan"]
+    if:
+      - condition: "entity-level-state"
+        state: "NOT_LEVELLED"
+      - condition: "entity-type"
+        blacklist-groups: ["passive-mobs", "neutral-mobs"]
+      - condition: "entity-owner"
+        whitelist: []
+    do:
+      - action: "set-level"
+        formula: "%weighted-random-level%"
+        strategies:
+          weighted-random:
+            tiers:
+              "1-20": 8
+              "21-40": 6
+              "41-60": 4
+              "61-80": 2
+              "81-100": 1
+
+      - action: "set-buffs"
+        use-presets: ["average-challenge"]
+
+      - action: "set-packet-label"
+        formula: "&8&l༺ &bLvl.%entity-level%&f %entity-prefix%&f%entity-name%&f%entity-suffix%&8 • &7%entity-health-rounded%&8/&7%entity-max-health-rounded%&c♥ &8&l༻"
+        visibility-methods: ["TARGETED", "ATTACKED"]
+        visibility-duration: "5s"
+
+      - action: "set-death-label"
+        formula: "[Lvl.%entity-level%](color=aqua) %entity-prefix%%entity-name%%entity-suffix%"
+    else:
+      - action: "set-level"
+        formula: "no-level"
+
+  # TODO move this out of Rules and make it an inbuilt levelledmobs things
+  # this is only present still to show you how it would work if done via a rule instead.
+  - rule: "label-updater"
+    triggers:
+      - "on-entity-damage"
+      - "on-entity-regain-health"
+      - "on-player-join"
+      - "on-player-teleport"
+      - "on-entity-track"
+      - "on-entity-scan"
+      - "on-entity-transform"
+    delay: 1 # A 1-tick delay is in place so that the correct info (e.g. health) is displayed.
+    if:
+      - condition: "entity-level"
+        state: "LEVELLED"
+    do:
+      - action: "update-labels"
+
+# (!) DO NOT MODIFY THIS SECTION UNLESS SPECIALLY INSTRUCTED BY A LEVELLEDMOBS MAINTAINER (!)
+# This section of the configuration contains various advanced options which very rarely should be
+# adjusted by any user.
+# (!) DO NOT MODIFY THIS SECTION UNLESS SPECIALLY INSTRUCTED BY A LEVELLEDMOBS MAINTAINER (!)
+advanced:
+
+    # Should LevelledMobs load the Simple Settings section as you've configured above?
+    # If you disable Simple Settings loading, then LevelledMobs will exclusively use the
+    # Rules System for customising its logic.
+    # For a more technical explanation of how this works, see here:
+    # TODO: Wiki link describing how Simple Settings works in relation to Rules.
+    disable-simple-settings: false
+
+    mob-target-placeholder:
+      levelled: "default"
+      not-levelled: "&f%entity-prefix%&f%entity-name%&f%entity-suffix%&f"
+   
+    debug-categories: []
+
+    metadata:
+      version:
+        file:
+          initial: 35 # TODO add file version
+          installed: 35 # TODO add file version
+        plugin:
+          initial: "${project.version}"
+          installed: "${project.version}"
