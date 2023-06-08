@@ -19,11 +19,14 @@
 - The way the Rules System works in LM4 is so different internally that we unfortunately can't automatically migrate your LM3 rules.
 - We've moved Presets into `presets.yml` to declutter the file - same with mob groups and biome groups into `groups.yml`.
 - Additionally, groups in `groups.yml` don't have to be for entities or biomes anymore, groups can hold anything in them.
+- Lastly, a handful of presets and groups supplied by LevelledMobs (especially the challenge presets) are now inbuilt instead of cluttering your file.
+  - This is so you can always have the latest updates and tweaks to them.
+  - You can override the inbuilt ones by creating a group or preset under the same name, and LM will use the one you provide instead. Or, create a group or preset with a different name and use that instead.
 
 ### Custom Drops Changes
 
-- We didn't have many changes to make to Custom Drops as it was designed pretty well from the get-go; we've made a bunch of small refinements to polish it up. It functions almost identically to LM3's implementation.
-- Your old custom drops can be migrated across automatically. Woot!
+- We didn't have many changes to make to Custom Drops as it was designed pretty well from the get-go; a handful of simple refinements were made to keep it as polished as possible. It functions almost identically to LM3's implementation on the outset, though things are handled quite differently inside the plugin's code.
+- Your old custom drops can be migrated across automatically, zero-effort. Woot!
 
 ### Translations Changes
 
